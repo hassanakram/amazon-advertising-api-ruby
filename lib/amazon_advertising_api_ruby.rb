@@ -1,4 +1,5 @@
 require "amazon_advertising_api_ruby/version"
+require "amazon_advertising_api_ruby/token"
 
 module AmazonAdvertisingApiRuby
   TOKEN_URL = "https://api.amazon.com"
@@ -28,6 +29,6 @@ module AmazonAdvertisingApiRuby
   end
 
   class << self
-    attr_accessor :client_secret, :client_id, :refresh_token, :profile_id, :test_env, :eu_env, :initializing_time
+    attr_accessor :client_secret, :client_id, :refresh_token, :profile_id, :test_env, :eu_env, :initializing_time, :access_token
   end
 end
