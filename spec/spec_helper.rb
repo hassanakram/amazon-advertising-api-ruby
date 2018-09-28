@@ -11,4 +11,20 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  RSpec.shared_context "shared setup", :shared_context => :metadata do
+    before do
+      AmazonAdvertisingApiRuby.test_env = true
+      AmazonAdvertisingApiRuby.profile_id = ENV["PROFILE_ID"]
+      AmazonAdvertisingApiRuby.client_id = ENV["CLIENT_ID"]
+      AmazonAdvertisingApiRuby.client_secret = ENV["CLIENT_SECRET"]
+      AmazonAdvertisingApiRuby.refresh_token = ENV["REFRESH_TOKEN"]
+    end
+  end
+
+  RSpec.configure do |rspec|
+    rspec.include_context "shared setup", :include_shared => true
+  end
+
+
 end
