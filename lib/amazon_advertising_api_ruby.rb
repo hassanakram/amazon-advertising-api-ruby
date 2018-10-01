@@ -1,4 +1,6 @@
 require "amazon_advertising_api_ruby/version"
+require "amazon_advertising_api_ruby/base_request"
+
 
 module AmazonAdvertisingApiRuby
   TOKEN_URL = "https://api.amazon.com"
