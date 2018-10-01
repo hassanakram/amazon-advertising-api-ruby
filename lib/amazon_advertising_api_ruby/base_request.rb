@@ -10,7 +10,7 @@ module AmazonAdvertisingApiRuby
       headers_hash = {
           "Authorization" => "Bearer #{access_token['access_token']}",
           "Content-Type" => "application/json",
-          "Amazon-Advertising-API-Scope" => Blurb.profile_id
+          "Amazon-Advertising-API-Scope" => AmazonAdvertisingApiRuby.profile_id
       }
 
       headers_hash["Content-Encoding"] = "gzip" if opts[:gzip]
@@ -24,11 +24,11 @@ module AmazonAdvertisingApiRuby
       }
 
       begin
-        resp = RestClient::Request.execute(request_config)
-      rescue RestClient::ExceptionWithResponse => err
+        response = HTTParty.get(request_config)
+      rescue HTTParty::Error => err
         # If this happens, then we are downloading a report from the api, so we can simply download the location
         if err.response.code == 307
-          return RestClient.get(err.response.headers[:location])
+          return HTTParty.get(err.response.headers[:location])
         end
       end
 
