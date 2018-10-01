@@ -1,12 +1,13 @@
 require "oauth2"
 require "httparty"
+require "rest-client"
 require 'time'
 require 'pry'
 require "amazon_advertising_api_ruby/version"
 require "amazon_advertising_api_ruby/base_request"
 require "amazon_advertising_api_ruby/token"
 require "amazon_advertising_api_ruby/campaign"
-
+require "amazon_advertising_api_ruby/profile"
 
 module AmazonAdvertisingApiRuby
   TOKEN_URL = "https://api.amazon.com"
