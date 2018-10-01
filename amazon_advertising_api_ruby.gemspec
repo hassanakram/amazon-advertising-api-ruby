@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_runtime_dependency "rest-client", "~> 2.0"
+  spec.add_runtime_dependency "httparty", "~> 0.13.7"
   spec.add_runtime_dependency "oauth2", "~> 1.4.0"
 end
+
