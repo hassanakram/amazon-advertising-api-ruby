@@ -4,6 +4,8 @@ require "rest-client"
 require "amazon_advertising_api_ruby/version"
 require "amazon_advertising_api_ruby/base_request"
 require "amazon_advertising_api_ruby/token"
+require "amazon_advertising_api_ruby/campaign"
+
 
 module AmazonAdvertisingApiRuby
   TOKEN_URL = "https://api.amazon.com"
