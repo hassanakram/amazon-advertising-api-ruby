@@ -2,6 +2,7 @@ require "oauth2"
 require "rest-client"
 
 require "amazon_advertising_api_ruby/version"
+require "amazon_advertising_api_ruby/base_request"
 require "amazon_advertising_api_ruby/token"
 
 module AmazonAdvertisingApiRuby
