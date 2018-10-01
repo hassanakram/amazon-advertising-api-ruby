@@ -1,6 +1,7 @@
 require "oauth2"
-require "rest-client"
-
+require "httparty"
+require 'time'
+require 'pry'
 require "amazon_advertising_api_ruby/version"
 require "amazon_advertising_api_ruby/base_request"
 require "amazon_advertising_api_ruby/token"

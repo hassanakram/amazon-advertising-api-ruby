@@ -3,16 +3,14 @@ module AmazonAdvertisingApiRuby
 
     def self.get_request(api_path, opts = {})
 
-
       url = "#{AmazonAdvertisingApiRuby.active_api_url}#{api_path}"
       url = api_path if opts[:full_path]
 
       headers_hash = {
-          "Authorization" => "Bearer #{access_token['access_token']}",
+          "Authorization" => "Bearer #{AmazonAdvertisingApiRuby.access_token}",
           "Content-Type" => "application/json",
           "Amazon-Advertising-API-Scope" => AmazonAdvertisingApiRuby.profile_id
       }
-
       headers_hash["Content-Encoding"] = "gzip" if opts[:gzip]
       # headers_hash.delete("Authorization") if opts[:no_token]
       request_config = {
@@ -30,20 +28,20 @@ module AmazonAdvertisingApiRuby
         end
       end
 
-      response = JSON.parse(resp) if resp
+      response = JSON.parse(response) if response
       return response
 
     end
 
     def self.post_request(api_path, payload)
 
-      access_token = AmazonAdvertisingApiRuby::Token.retrieve()
+      # access_token = AmazonAdvertisingApiRuby::Token.retrieve()
       request_config = {
           method: :post,
           url: "#{AmazonAdvertisingApiRuby::API_URL}#{api_path}",
           payload: payload.to_json,
           headers: {
-              :Authorization => "Bearer #{access_token['access_token']}",
+              :Authorization => "Bearer #{AmazonAdvertisingApiRuby.access_token}",
               "Content-Type" => "application/json",
               "Amazon-Advertising-API-Scope" => AmazonAdvertisingApiRuby.profile_id.to_i
           }
