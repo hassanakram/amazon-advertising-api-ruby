@@ -3,16 +3,7 @@ module AmazonAdvertisingApiRuby
 
     def self.create(params = {}, opts = {})
       raise ArgumentError.new("params hash must contain a recordType") unless params["recordType"]
-
-      api_params = {
-        "campaignType" => "sponsoredProducts",
-        "reportDate" => params["reportDate"],
-        "metrics" => params["metrics"]
-      }
-
-      api_params["segment"] = params["segment"] if params["segment"]
-
-      send_request("/v1/#{params["recordType"]}/report", "post", api_params)
+      send_request("/v1/#{params.delete("recordType")}/report", "post", params)
     end
 
     def self.status(report_id, opts = {})

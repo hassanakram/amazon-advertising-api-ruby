@@ -12,13 +12,13 @@ RSpec.describe AmazonAdvertisingApiRuby::Profile do
     end
 
     it "register profiles" do
-      profiles = AmazonAdvertisingApiRuby::Profile.register("US")
+      profiles = AmazonAdvertisingApiRuby::Profile.register
       profile_id = profiles["registerProfileId"] || profiles["profileId"]
       expect(profile_id).not_to be nil
     end
 
     it "create profiles" do
-      profiles = AmazonAdvertisingApiRuby::Profile.create("US")
+      profiles = AmazonAdvertisingApiRuby::Profile.create
       expect(profiles["profileId"]).not_to be nil
     end
 
