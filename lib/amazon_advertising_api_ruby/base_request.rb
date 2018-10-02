@@ -7,7 +7,7 @@ module AmazonAdvertisingApiRuby
       request_config = {
           method: method,
           url: url,
-          headers:{
+          headers: {
               "Authorization" => AmazonAdvertisingApiRuby.access_token,
               "Content-Type" => "application/json",
               "Amazon-Advertising-API-Scope" => AmazonAdvertisingApiRuby.profile_id
@@ -21,17 +21,17 @@ module AmazonAdvertisingApiRuby
       end
       JSON.parse(response)
     end
-    
-    def self.profile_request(api_path, opt={})
+
+    def self.profile_request(api_path, opt = {})
       payloads = opt[:method] == 'get' ? {} : {countryCode: opt[:country_code]}
       request_config = {
-        method: (opt[:method].to_sym),
-        url: "#{AmazonAdvertisingApiRuby.active_api_url}#{api_path}",
-        payload: payloads.to_json,
-        headers: {
-          "Authorization" => "Bearer #{AmazonAdvertisingApiRuby.access_token}",
-          "Content-Type" => "application/json"
-        }
+          method: (opt[:method].to_sym),
+          url: "#{AmazonAdvertisingApiRuby.active_api_url}#{api_path}",
+          payload: payloads.to_json,
+          headers: {
+              "Authorization" => "Bearer #{AmazonAdvertisingApiRuby.access_token}",
+              "Content-Type" => "application/json"
+          }
       }
       resp = RestClient::Request.execute(request_config)
       JSON.parse(resp)
