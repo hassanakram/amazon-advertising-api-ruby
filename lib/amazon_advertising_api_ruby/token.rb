@@ -2,7 +2,7 @@ module AmazonAdvertisingApiRuby
   class Token < BaseRequest
 
     def self.retrieve
-      one_hour_ago = (Time.now - 1*60*60)
+      one_hour_ago = (Time.now - 1 * 60 * 60)
       if (AmazonAdvertisingApiRuby.initializing_time.nil?) || (AmazonAdvertisingApiRuby.initializing_time < one_hour_ago.to_datetime)
         response = AmazonAdvertisingApiRuby::client.request(:post, "/auth/o2/token",
           {
