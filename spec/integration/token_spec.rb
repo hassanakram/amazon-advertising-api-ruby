@@ -9,4 +9,3 @@ RSpec.describe AmazonAdvertisingApiRuby::Token do
   end
 
 end
-
