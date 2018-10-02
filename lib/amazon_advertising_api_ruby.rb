@@ -6,6 +6,7 @@ require "amazon_advertising_api_ruby/base_request"
 require "amazon_advertising_api_ruby/token"
 require "amazon_advertising_api_ruby/campaign"
 require "amazon_advertising_api_ruby/profile"
+require "amazon_advertising_api_ruby/ad_group"
 
 module AmazonAdvertisingApiRuby
   TOKEN_URL = "https://api.amazon.com"
