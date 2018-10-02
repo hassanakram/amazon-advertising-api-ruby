@@ -12,26 +12,29 @@ RSpec.describe AmazonAdvertisingApiRuby::Campaign do
     })
   end
   describe "campaign crud operations" do
+
     it "create campaign" do
-      expect(@campaigns).not_to be nil
+      expect(@campaigns[0]["code"]).to include('SUCCESS')
     end
+
     it 'get campaign' do
       campaign = AmazonAdvertisingApiRuby::Campaign.retrieve(@campaigns.first["campaignId"])
-      expect(campaign).not_to be nil
+      expect(campaign["campaignId"]).not_to be nil
     end
+
     it 'get campaign with extended fields' do
       campaign = AmazonAdvertisingApiRuby::Campaign.get_extended(@campaigns.first["campaignId"])
-      expect(campaign).not_to be nil
+      expect(campaign["campaignId"]).not_to be nil
     end
 
     it 'delete campaign' do
       campaign = AmazonAdvertisingApiRuby::Campaign.archived(@campaigns.first["campaignId"])
-      expect(campaign).not_to be nil
+      expect(campaign["campaignId"]).not_to be nil and expect(campaign["code"]).to include "SUCCESS"
     end
 
     it 'list campaigns' do
       campaign = AmazonAdvertisingApiRuby::Campaign.list()
-      expect(campaign).not_to be nil
+      expect(campaign.count).to be >= 1
     end
 
     it "checks invlid campaign data" do
@@ -64,4 +67,3 @@ RSpec.describe AmazonAdvertisingApiRuby::Campaign do
   end
 
 end
-
