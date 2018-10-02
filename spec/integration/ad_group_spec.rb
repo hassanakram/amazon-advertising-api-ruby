@@ -4,7 +4,6 @@ RSpec.describe AmazonAdvertisingApiRuby::AdGroup do
 
   describe "AdGroup crud operations" do
     before (:each) do
-      set_configurations
       @adGroups = AmazonAdvertisingApiRuby::AdGroup.create({
                                                                "name" => "xyz",
                                                                "campaignId" => 232518632675541,
@@ -13,13 +12,13 @@ RSpec.describe AmazonAdvertisingApiRuby::AdGroup do
                                                            })
     end
 
+    it 'Create AdGroup' do
+      expect(@adGroups).not_to be nil
+    end
+
     it 'list AdGroup' do
       ad_group = AmazonAdvertisingApiRuby::AdGroup.list()
       expect(ad_group).not_to be nil
-    end
-
-    it 'Create AdGroup' do
-      expect(@adGroups).not_to be nil
     end
 
     it 'archived AdGroup' do
@@ -28,7 +27,7 @@ RSpec.describe AmazonAdvertisingApiRuby::AdGroup do
     end
 
     it 'get AdGroup' do
-      ad_group = AmazonAdvertisingApiRuby::AdGroup.get(@adGroups.first["adGroupId"])
+      ad_group = AmazonAdvertisingApiRuby::AdGroup.retrieve(@adGroups.first["adGroupId"])
       expect(ad_group).not_to be nil
     end
 
@@ -36,7 +35,6 @@ RSpec.describe AmazonAdvertisingApiRuby::AdGroup do
       ad_group = AmazonAdvertisingApiRuby::AdGroup.get_extended(@adGroups.first["adGroupId"])
       expect(ad_group).not_to be nil
     end
-
 
   end
 end
