@@ -22,6 +22,13 @@ module AmazonAdvertisingApiRuby
           },
           payload: payload.to_json
       }
+      request_config[:headers]["Authorization"] = "Bearer " + request_config[:headers]["Authorization"] if opts[:profile]
+
+      if opts[:gzip]
+        request_config[:headers]["Content-Encoding"] = "gzip"
+        request_config[:max_redirects] = 0
+      end
+
       begin
         response = RestClient::Request.execute(request_config)
         return JSON.parse(response)
@@ -29,22 +36,6 @@ module AmazonAdvertisingApiRuby
         return err
       end
     end
-
-    def self.profile_request(api_path, opt = {})
-      payloads = opt[:method] == 'get' ? {} : {countryCode: opt[:country_code]}
-      request_config = {
-          method: (opt[:method].to_sym),
-          url: "#{AmazonAdvertisingApiRuby.active_api_url}#{api_path}",
-          payload: payloads.to_json,
-          headers: {
-              "Authorization" => "Bearer #{AmazonAdvertisingApiRuby.access_token}",
-              "Content-Type" => "application/json"
-          }
-      }
-      resp = RestClient::Request.execute(request_config)
-      JSON.parse(resp)
-    end
-
 
     def self.create(params = {}, opts = {})
       missing_params = []

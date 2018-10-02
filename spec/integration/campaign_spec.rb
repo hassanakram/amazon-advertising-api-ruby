@@ -3,13 +3,13 @@ require "spec_helper"
 RSpec.describe AmazonAdvertisingApiRuby::Campaign do
   before (:each) do
     @campaigns = AmazonAdvertisingApiRuby::Campaign.create({
-                                                               "name" => "test",
-                                                               "campaignType" => "sponsoredProducts",
-                                                               "state" => "enabled",
-                                                               "dailyBudget" => 10,
-                                                               "startDate" => (Time.now).strftime('%Y%m%d'),
-                                                               "targetingType" => "abc"
-                                                           })
+      "name" => "test",
+      "campaignType" => "sponsoredProducts",
+      "state" => "enabled",
+      "dailyBudget" => 10,
+      "startDate" => (Time.now).strftime('%Y%m%d'),
+      "targetingType" => "abc"
+    })
   end
   describe "campaign crud operations" do
     it "create campaign" do

@@ -5,11 +5,11 @@ RSpec.describe AmazonAdvertisingApiRuby::AdGroup do
   describe "AdGroup crud operations" do
     before (:each) do
       @adGroups = AmazonAdvertisingApiRuby::AdGroup.create({
-                                                               "name" => "xyz",
-                                                               "campaignId" => 232518632675541,
-                                                               "state" => "enabled",
-                                                               "defaultBid" => 0.5,
-                                                           })
+        "name" => "xyz",
+        "campaignId" => 232518632675541,
+        "state" => "enabled",
+        "defaultBid" => 0.5,
+       })
     end
 
     it 'Create AdGroup' do
