@@ -1,9 +1,6 @@
 require "spec_helper"
 
 RSpec.describe AmazonAdvertisingApiRuby::Profile do
-  before (:all) do
-    set_configurations
-  end
 
   describe "#list" do
     it "returns profiles" do

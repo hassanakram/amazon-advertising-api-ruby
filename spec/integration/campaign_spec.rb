@@ -1,9 +1,6 @@
 require "spec_helper"
 
 RSpec.describe AmazonAdvertisingApiRuby::Campaign do
-  before (:all) do
-    set_configurations
-  end
   before (:each) do
     @campaigns = AmazonAdvertisingApiRuby::Campaign.create({
                                                                "name" => "test",
@@ -18,11 +15,11 @@ RSpec.describe AmazonAdvertisingApiRuby::Campaign do
     it "create campaign" do
       expect(@campaigns).not_to be nil
     end
-    it 'list campaign' do
-      campaign = AmazonAdvertisingApiRuby::Campaign.get(@campaigns.first["campaignId"])
+    it 'get campaign' do
+      campaign = AmazonAdvertisingApiRuby::Campaign.retrieve(@campaigns.first["campaignId"])
       expect(campaign).not_to be nil
     end
-    it 'list campaign and extended fields' do
+    it 'get campaign with extended fields' do
       campaign = AmazonAdvertisingApiRuby::Campaign.get_extended(@campaigns.first["campaignId"])
       expect(campaign).not_to be nil
     end
@@ -35,6 +32,33 @@ RSpec.describe AmazonAdvertisingApiRuby::Campaign do
     it 'list campaigns' do
       campaign = AmazonAdvertisingApiRuby::Campaign.list()
       expect(campaign).not_to be nil
+    end
+
+    it "checks invlid campaign data" do
+      @invalid_campaigns = AmazonAdvertisingApiRuby::Campaign.create({
+                                                                         "name" => "invalid",
+                                                                         "campaignType" => "invalid",
+                                                                         "state" => "invalid",
+                                                                         "dailyBudget" => "aa",
+                                                                         "startDate" => (Time.now).strftime('%Y%m%d'),
+                                                                         "targetingType" => "invalid"
+                                                                     })
+      expect(@invalid_campaigns.to_s).to include('422') #Unprocessable Entity Error
+    end
+
+    it "checks all parameters are passed" do
+      begin
+        @invalid_campaigns = AmazonAdvertisingApiRuby::Campaign.create({
+                                                                           # "name" => "invalid",
+                                                                           "campaignType" => "invalid",
+                                                                           "state" => "invalid",
+                                                                           "dailyBudget" => "aa",
+                                                                           "startDate" => (Time.now).strftime('%Y%m%d'),
+                                                                           "targetingType" => "invalid"
+                                                                       })
+      rescue => err
+        expect(err.to_s).to include('Parameter missing') #missing parameter error
+      end
     end
 
   end

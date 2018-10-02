@@ -26,5 +26,4 @@ RSpec.configure do |config|
     rspec.include_context "shared setup", :include_shared => true
   end
 
-
 end
