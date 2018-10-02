@@ -78,6 +78,5 @@ module AmazonAdvertisingApiRuby
       return url_params
     end
 
-
   end
 end
