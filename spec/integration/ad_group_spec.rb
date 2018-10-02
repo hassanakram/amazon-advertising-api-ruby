@@ -4,6 +4,7 @@ RSpec.describe AmazonAdvertisingApiRuby::AdGroup do
 
   describe "AdGroup crud operations" do
     before (:each) do
+
       @adGroups = AmazonAdvertisingApiRuby::AdGroup.create({
         "name" => "xyz",
         "campaignId" => 232518632675541,
@@ -18,7 +19,7 @@ RSpec.describe AmazonAdvertisingApiRuby::AdGroup do
 
     it 'list AdGroup' do
       ad_group = AmazonAdvertisingApiRuby::AdGroup.list()
-      expect(ad_group.count).to be > 1
+      expect(ad_group.count).to be >= 1
     end
 
     it 'archived AdGroup' do
