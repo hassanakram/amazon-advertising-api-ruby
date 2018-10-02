@@ -6,12 +6,12 @@ module AmazonAdvertisingApiRuby
       fileds.map {|a|
         if params[a].nil? then
           raise ArgumentError.new("params hash must contain name, campaignType, targetingType, state, dailyBudget and startDate")
-        end}
-
+        end
+      }
       send_request("/v1/campaigns", 'post', [params])
     end
 
-    def self.get_campaign(campaign_id)
+    def self.get(campaign_id)
       send_request("/v1/campaigns/#{campaign_id}")
     end
 
@@ -21,6 +21,10 @@ module AmazonAdvertisingApiRuby
 
     def self.archived(campaign_id)
       send_request("/v1/campaigns/#{campaign_id}", 'delete')
+    end
+
+    def self.list(params = {}, opts = {})
+      send_request("/v1/campaigns?#{setup_url_params(params)}")
     end
 
 

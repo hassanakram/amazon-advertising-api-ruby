@@ -8,9 +8,9 @@ module AmazonAdvertisingApiRuby
         method: method,
         url: url,
         headers:{
-            "Authorization" => AmazonAdvertisingApiRuby.access_token,
-            "Content-Type" => "application/json",
-            "Amazon-Advertising-API-Scope" => AmazonAdvertisingApiRuby.profile_id
+          "Authorization" => AmazonAdvertisingApiRuby.access_token,
+          "Content-Type" => "application/json",
+          "Amazon-Advertising-API-Scope" => AmazonAdvertisingApiRuby.profile_id
         },
         payload: payload.to_json
       }
@@ -30,7 +30,7 @@ module AmazonAdvertisingApiRuby
       JSON.parse(response)
     end
 
-    def self.profile_request(api_path, opt={})
+    def self.profile_request(api_path, opt = {})
       payloads = opt[:method] == 'get' ? {} : {countryCode: opt[:country_code]}
       request_config = {
         method: (opt[:method].to_sym),
