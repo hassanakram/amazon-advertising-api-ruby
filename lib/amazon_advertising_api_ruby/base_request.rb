@@ -68,6 +68,24 @@ module AmazonAdvertisingApiRuby
       send_request(self::API_LIST_URL + "#{setup_url_params(params)}")
     end
 
+    def self.request_record_type(params = {}, opts = {})
+      raise ArgumentError.new("params hash must contain a recordType") unless params["recordType"]
+      send_request(self::REQUEST_URL%params.delete("recordType"), "post", params)
+    end
+
+    def self.download(location, opts = {})
+      opts.merge!({:full_path => true, :gzip => true})
+      response_body = send_request(location, "get", nil, opts)
+      dir = "public/reports/"
+      local_dir = FileUtils.mkdir_p(dir)
+      file_path = dir + opts[:recordType]+ "-" + Date.today.to_s + ".json.gz"
+
+      File.open(file_path, 'wb') do |file|
+        file << response_body
+      end
+      file_path
+    end
+
     def self.setup_url_params(params)
       fields = ['startIndex', 'count', 'campaignType', 'stateFilter', 'name', 'campaignIdFilter', 'adGroupIdFilter']
       return map_url(params, fields)
