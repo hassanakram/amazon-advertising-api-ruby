@@ -28,17 +28,17 @@ module AmazonAdvertisingApiRuby
   # By default this gem will use the production API url unless the test_env module
   # variable is set to true. Then the test API url will be used
   def self.active_api_url
-    if test_env
-      return TEST_API_URL
+    case current_env
+    when 'test'
+      TEST_API_URL
+    when 'eu'
+      EU_API_URL
+    else
+      API_URL
     end
-    if eu_env
-      return EU_API_URL
-    end
-
-    return API_URL
   end
 
   class << self
-    attr_accessor :client_secret, :client_id, :refresh_token, :profile_id, :test_env, :eu_env, :initializing_time, :access_token
+    attr_accessor :client_secret, :client_id, :refresh_token, :profile_id, :current_env, :initializing_time, :access_token
   end
 end
