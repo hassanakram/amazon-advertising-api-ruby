@@ -14,7 +14,6 @@ RSpec.describe AmazonAdvertisingApiRuby::ProductAd do
     end
 
     it 'Create ProductAd' do
-      binding.pry
       expect(@product_ad[0]["code"]).to include('SUCCESS')
     end
 
