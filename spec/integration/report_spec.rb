@@ -18,7 +18,7 @@ RSpec.describe AmazonAdvertisingApiRuby::Report do
 
         expect(payload_response).not_to be nil
         sleep(10)
-        status = AmazonAdvertisingApiRuby::Report.status(payload_response["reportId"])
+        status = AmazonAdvertisingApiRuby::Report.retrieve(payload_response["reportId"])
         if status && status["location"]
           report = AmazonAdvertisingApiRuby::Report.download(status["location"], recordType: 'keywords')
           expect(report).not_to be nil

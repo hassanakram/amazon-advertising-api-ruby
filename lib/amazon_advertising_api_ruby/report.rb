@@ -1,13 +1,10 @@
 module AmazonAdvertisingApiRuby
   class Report < BaseRequest
+    API_GET_URL = "/v1/reports/"
 
     def self.create(params = {}, opts = {})
       raise ArgumentError.new("params hash must contain a recordType") unless params["recordType"]
       send_request("/v1/#{params.delete("recordType")}/report", "post", params)
-    end
-
-    def self.status(report_id, opts = {})
-      send_request("/v1/reports/#{report_id}")
     end
 
     def self.download(location, opts = {})
