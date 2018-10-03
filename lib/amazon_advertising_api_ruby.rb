@@ -8,8 +8,8 @@ require "amazon_advertising_api_ruby/version"
 require "oauth2"
 require "pry"
 require "rest-client"
-
-
+require "amazon_advertising_api_ruby/ad_group"
+require "amazon_advertising_api_ruby/suggested_keyword"
 
 module AmazonAdvertisingApiRuby
   TOKEN_URL = "https://api.amazon.com"

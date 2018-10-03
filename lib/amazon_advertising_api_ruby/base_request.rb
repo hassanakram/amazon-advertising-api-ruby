@@ -12,6 +12,7 @@ module AmazonAdvertisingApiRuby
       response = {}
       url = "#{AmazonAdvertisingApiRuby.active_api_url}#{api_path}"
       url = api_path if opts[:full_path]
+
       request_config = {
           method: method,
           url: url,
@@ -22,6 +23,7 @@ module AmazonAdvertisingApiRuby
           },
           payload: payload.to_json
       }
+
       request_config[:headers]["Authorization"] = "Bearer " + request_config[:headers]["Authorization"] if opts[:profile]
 
       if opts[:gzip]
@@ -33,8 +35,12 @@ module AmazonAdvertisingApiRuby
         response = RestClient::Request.execute(request_config)
         return JSON.parse(response)
       rescue RestClient::ExceptionWithResponse => err
+        if err.response.code == 307
+          return RestClient.get(err.response.headers[:location])
+        end
         return err
       end
+
     end
 
     def self.create(params = {}, opts = {})
@@ -64,18 +70,21 @@ module AmazonAdvertisingApiRuby
       send_request(self::API_LIST_URL + "#{setup_url_params(params)}")
     end
 
-    private
-
     def self.setup_url_params(params)
       fields = ['startIndex', 'count', 'campaignType', 'stateFilter', 'name', 'campaignIdFilter', 'adGroupIdFilter']
+      return map_url(params, fields)
+    end
+
+    def self.map_url(params, fields)
       url_params = ""
       fields.map {|a|
         if params[a] then
           url_params += "&" if url_params.size > 0
-          url_params += a + "=" + params[a]
+          url_params += "?" if url_params.size == 0
+          url_params += + a + "=" + params[a].to_s
         end
       }
-      return url_params
+      url_params
     end
 
   end
