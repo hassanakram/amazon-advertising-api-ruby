@@ -8,6 +8,8 @@
 /spec/reports/
 /tmp/
 /.idea/
-
+spec/yaml/secret.yaml
+/.DS_Store
+public/
 # rspec failure tracking
 .rspec_status

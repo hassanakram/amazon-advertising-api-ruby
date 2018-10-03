@@ -1,41 +1,115 @@
 module AmazonAdvertisingApiRuby
   class BaseRequest
 
-    def self.get_request(api_path, opts = {})
+    UPDATE_FIELD = 'keywordId'
+    MUTABLE_FIELD = ['state', 'keywordId']
 
 
+    def self.send_request(api_path, method = 'get', payload = nil, opts = {})
+      response = {}
       url = "#{AmazonAdvertisingApiRuby.active_api_url}#{api_path}"
       url = api_path if opts[:full_path]
 
-      headers_hash = {
-          "Authorization" => "Bearer #{access_token['access_token']}",
-          "Content-Type" => "application/json",
-          "Amazon-Advertising-API-Scope" => AmazonAdvertisingApiRuby.profile_id
-      }
-
-      headers_hash["Content-Encoding"] = "gzip" if opts[:gzip]
-      # headers_hash.delete("Authorization") if opts[:no_token]
-
       request_config = {
-          method: :get,
+          method: method,
           url: url,
-          headers: headers_hash,
-          max_redirects: 0
+          headers: {
+              "Authorization" => AmazonAdvertisingApiRuby::Token.retrieve,
+              "Content-Type" => "application/json",
+              "Amazon-Advertising-API-Scope" => AmazonAdvertisingApiRuby.profile_id
+          },
+          payload: payload.to_json
       }
 
-      begin
-        response = HTTParty.get(request_config)
-      rescue HTTParty::Error => err
-        # If this happens, then we are downloading a report from the api, so we can simply download the location
-        if err.response.code == 307
-          return HTTParty.get(err.response.headers[:location])
-        end
+      if opts[:gzip]
+        request_config[:headers]["Content-Encoding"] = "gzip"
+        request_config[:max_redirects] = 0
       end
 
-      response = JSON.parse(resp) if resp
-      return response
+      begin
+        response = RestClient::Request.execute(request_config)
+        return JSON.parse(response)
+      rescue RestClient::ExceptionWithResponse => err
+        if err.response.code == 307
+          return RestClient.get(err.response.headers[:location])
+        end
+        return err
+      end
 
+    end
+
+    def self.create(params = {}, opts = {})
+      missing_params = []
+      self::FIELDS.map {|field|
+        if params[field].nil? then
+          missing_params.push(field)
+        end
+      }
+      raise ArgumentError.new("Parameter#{'s' if missing_params.count > 1} missing: #{missing_params.join(", ")}") if missing_params.count > 0
+      send_request(self::API_URL, 'post', [params])
+    end
+
+    def self.retrieve(id)
+      send_request(self::API_GET_URL + "#{id}")
+    end
+
+    def self.get_extended(id)
+      send_request(self::API_GET_EXTENDED_URL + "#{id}")
+    end
+
+    def self.archived(id)
+      send_request(self::API_GET_URL + "#{id}", 'delete')
+    end
+
+    def self.list(params = {}, opts = {})
+      send_request(self::API_URL + "#{setup_url_params(params)}")
+    end
+
+    def self.update(params = {}, opt = {})
+      raise ArgumentError.new("#{self::UPDATE_FIELD} is required") if params.key?("#{self::UPDATE_FIELD}") == false
+      extra_parms = []
+      params.keys.map {|key|
+        unless self::MUTABLE_FIELD.include? key then
+          extra_parms.push(key)
+        end
+      }
+      raise ArgumentError.new("Parameter#{'s' if extra_parms.count > 1} Extra: #{extra_parms.join(", ")}") if extra_parms.count > 0
+      send_request(self::API_URL, 'put', [params])
+    end
+
+    def self.request_record_type(params = {}, opts = {})
+      raise ArgumentError.new("params hash must contain a recordType") unless params["recordType"]
+      send_request(self::REQUEST_URL%params.delete("recordType"), "post", params)
+    end
+
+    def self.download(location, opts = {})
+      opts.merge!({:full_path => true, :gzip => true})
+      response_body = send_request(location, "get", nil, opts)
+      dir = "public/reports/"
+      local_dir = FileUtils.mkdir_p(dir)
+      file_path = dir + opts[:recordType]+ "-" + Date.today.to_s + ".json.gz"
+
+      File.open(file_path, 'wb') do |file|
+        file << response_body
+      end
+      file_path
+    end
+
+    def self.setup_url_params(params)
+      fields = ['startIndex', 'count', 'campaignType', 'stateFilter', 'name', 'campaignIdFilter', 'adGroupIdFilter', 'keywordText', 'matchTypeFilter', 'keywordIdFilter', 'sku', 'asin']
+      return map_url(params, fields)
+    end
+
+    def self.map_url(params, fields)
+      url_params = ""
+      fields.map {|a|
+        if params[a] then
+          url_params += "&" if url_params.size > 0
+          url_params += "?" if url_params.size == 0
+          url_params += +a + "=" + params[a].to_s
+        end
+      }
+      url_params
     end
   end
 end
-

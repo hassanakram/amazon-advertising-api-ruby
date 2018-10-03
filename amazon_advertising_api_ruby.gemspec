@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "amazon_advertising_api_ruby/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "integration"
+  spec.name          = "amazon_advertising_api_ruby"
   spec.version       = AmazonAdvertisingApiRuby::VERSION
   spec.authors       = ["Qbatch"]
   spec.email         = ["hassan.akram3282@gmail.com"]
@@ -33,9 +33,11 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.16"
+  spec.add_development_dependency "pry", "~> 0.11.3"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_runtime_dependency "httparty", "~> 0.13.7"
+
+  spec.add_runtime_dependency "rest-client", "~> 2.0"
   spec.add_runtime_dependency "oauth2", "~> 1.4.0"
 end
 
