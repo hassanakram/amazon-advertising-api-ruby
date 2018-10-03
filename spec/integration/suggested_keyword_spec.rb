@@ -1,9 +1,7 @@
 require "spec_helper"
 
 RSpec.describe AmazonAdvertisingApiRuby::Keyword::SuggestedKeyword do
-  before (:all) do
-    set_configurations
-  end
+  include_context "shared setup"
 
   describe "suggested keywords operations" do
     it "return list of suggested keywords by ad group" do

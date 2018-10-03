@@ -1,6 +1,7 @@
 require "spec_helper"
 
 RSpec.describe AmazonAdvertisingApiRuby::Profile do
+  include_context "shared setup"
 
   describe "#list" do
     it "returns profiles" do

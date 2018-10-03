@@ -1,6 +1,7 @@
 require "spec_helper"
 
 RSpec.describe AmazonAdvertisingApiRuby::AdGroup do
+  include_context "shared setup"
 
   describe "AdGroup crud operations" do
     before (:each) do
