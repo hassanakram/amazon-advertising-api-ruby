@@ -1,9 +1,6 @@
 require "spec_helper"
 
 RSpec.describe AmazonAdvertisingApiRuby::Keyword::SuggestedKeyword do
-  before (:all) do
-    set_configurations
-  end
 
   describe "suggested keywords operations" do
     it "return list of suggested keywords by ad group" do
@@ -11,7 +8,7 @@ RSpec.describe AmazonAdvertisingApiRuby::Keyword::SuggestedKeyword do
       opts = {
         suggestedBy: "adGroupId"
       }
-      params = {"adGroupId" => 216603266439677, "adStateFilter" => "enabled,paused,archived", "maxNumSuggestions" => 200}
+      params = {"adGroupId" => 58259585675226, "adStateFilter" => "enabled", "maxNumSuggestions" => 200}
       api_call(params, opts)
     end
 
@@ -51,7 +48,7 @@ RSpec.describe AmazonAdvertisingApiRuby::Keyword::SuggestedKeyword do
       "name" => "xyz",
       "campaignId" => 232518632675541,
       "state" => "enabled",
-      "defaultBid" => 0.5
+      "defaultBid" => 0.5,
     })
   end
 
