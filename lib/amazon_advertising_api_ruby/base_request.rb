@@ -17,14 +17,12 @@ module AmazonAdvertisingApiRuby
           method: method,
           url: url,
           headers: {
-              "Authorization" => AmazonAdvertisingApiRuby.access_token,
+              "Authorization" => AmazonAdvertisingApiRuby::Token.retrieve,
               "Content-Type" => "application/json",
               "Amazon-Advertising-API-Scope" => AmazonAdvertisingApiRuby.profile_id
           },
           payload: payload.to_json
       }
-
-      request_config[:headers]["Authorization"] = "Bearer " + request_config[:headers]["Authorization"] if opts[:profile]
 
       if opts[:gzip]
         request_config[:headers]["Content-Encoding"] = "gzip"
