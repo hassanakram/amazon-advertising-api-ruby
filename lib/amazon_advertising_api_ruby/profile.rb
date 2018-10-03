@@ -1,5 +1,7 @@
 module AmazonAdvertisingApiRuby
-  class Profile < BaseRequest
+  class Profile  < BaseRequest
+    API_GET_URL = "/v1/profiles/"
+    API_LIST_URL = "/v1/profiles"
     UPDATE_FIELD = 'profileId'
 
     def self.list
@@ -7,11 +9,7 @@ module AmazonAdvertisingApiRuby
     end
 
     def self.register(payloads = {countryCode: "US"})
-      send_request("/v1/profiles/register", "put", payloads, profile: true)
-    end
-
-    def self.retrieve(profile_id)
-      send_request("/v1/profiles/#{profile_id}", "get", nil, profile: true)
+      send_request("/v1/profiles/register", "put", payloads)
     end
 
     def self.create(payloads = {countryCode: "US"})
@@ -20,4 +18,3 @@ module AmazonAdvertisingApiRuby
     end
   end
 end
-

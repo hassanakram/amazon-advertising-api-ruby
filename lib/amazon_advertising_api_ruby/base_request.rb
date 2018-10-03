@@ -14,14 +14,12 @@ module AmazonAdvertisingApiRuby
           method: method,
           url: url,
           headers: {
-              "Authorization" => AmazonAdvertisingApiRuby.access_token,
+              "Authorization" => AmazonAdvertisingApiRuby::Token.retrieve,
               "Content-Type" => "application/json",
               "Amazon-Advertising-API-Scope" => AmazonAdvertisingApiRuby.profile_id
           },
           payload: payload.to_json
       }
-
-      request_config[:headers]["Authorization"] = "Bearer " + request_config[:headers]["Authorization"] if opts[:profile]
 
       if opts[:gzip]
         request_config[:headers]["Content-Encoding"] = "gzip"
@@ -77,6 +75,24 @@ module AmazonAdvertisingApiRuby
       }
       raise ArgumentError.new("Parameter#{'s' if extra_parms.count > 1} missing: #{extra_parms.join(", ")}") if extra_parms.count > 0
       send_request(self::API_URL, 'put', [params])
+    end
+
+    def self.request_record_type(params = {}, opts = {})
+      raise ArgumentError.new("params hash must contain a recordType") unless params["recordType"]
+      send_request(self::REQUEST_URL%params.delete("recordType"), "post", params)
+    end
+
+    def self.download(location, opts = {})
+      opts.merge!({:full_path => true, :gzip => true})
+      response_body = send_request(location, "get", nil, opts)
+      dir = "public/reports/"
+      local_dir = FileUtils.mkdir_p(dir)
+      file_path = dir + opts[:recordType]+ "-" + Date.today.to_s + ".json.gz"
+
+      File.open(file_path, 'wb') do |file|
+        file << response_body
+      end
+      file_path
     end
 
     def self.setup_url_params(params)

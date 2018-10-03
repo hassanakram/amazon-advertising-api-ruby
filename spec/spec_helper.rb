@@ -13,17 +13,18 @@ RSpec.configure do |config|
   end
 
   RSpec.shared_context "shared setup", :shared_context => :metadata do
-    before do
-      AmazonAdvertisingApiRuby.test_env = true
-      AmazonAdvertisingApiRuby.profile_id = ENV["PROFILE_ID"]
-      AmazonAdvertisingApiRuby.client_id = ENV["CLIENT_ID"]
-      AmazonAdvertisingApiRuby.client_secret = ENV["CLIENT_SECRET"]
-      AmazonAdvertisingApiRuby.refresh_token = ENV["REFRESH_TOKEN"]
+    before (:all) do
+      file_path = File.join(File.dirname(__FILE__),"yaml/secret.yaml")
+      credentials = YAML.load_file(file_path)
+      if credentials
+        AmazonAdvertisingApiRuby.current_env = 'test'
+        AmazonAdvertisingApiRuby.client_id = credentials["CLIENT_ID"]
+        AmazonAdvertisingApiRuby.client_secret = credentials["CLIENT_SECRET"]
+        AmazonAdvertisingApiRuby.refresh_token = credentials["REFRESH_TOKEN"]
+        AmazonAdvertisingApiRuby.profile_id = credentials["PROFILE_ID"]
+      end
     end
   end
 
-  RSpec.configure do |rspec|
-    rspec.include_context "shared setup", :include_shared => true
-  end
-
+  config.include_context "shared setup", :include_shared => true
 end
