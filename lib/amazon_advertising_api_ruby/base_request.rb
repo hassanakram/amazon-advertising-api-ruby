@@ -73,7 +73,7 @@ module AmazonAdvertisingApiRuby
           extra_parms.push(key)
         end
       }
-      raise ArgumentError.new("Parameter#{'s' if extra_parms.count > 1} missing: #{extra_parms.join(", ")}") if extra_parms.count > 0
+      raise ArgumentError.new("Parameter#{'s' if extra_parms.count > 1} Extra: #{extra_parms.join(", ")}") if extra_parms.count > 0
       send_request(self::API_URL, 'put', [params])
     end
 

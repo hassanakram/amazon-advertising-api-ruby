@@ -6,7 +6,7 @@ module AmazonAdvertisingApiRuby
     API_URL = "/v1/campaigns/"
     FIELDS = ['name', 'campaignType', 'targetingType', 'state', 'dailyBudget', 'startDate']
     UPDATE_FIELD = 'campaignId'
-    MUTABLE_FIELD = ['state', 'dailyBudget', 'startDate', 'endDate', 'premiumBidAdjustment', 'campaignId']
+    MUTABLE_FIELD = ['name','state', 'dailyBudget', 'startDate', 'endDate', 'premiumBidAdjustment', 'campaignId']
 
   end
 end

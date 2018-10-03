@@ -3,6 +3,8 @@ module AmazonAdvertisingApiRuby
     API_GET_URL = "/v1/profiles/"
     API_LIST_URL = "/v1/profiles"
     UPDATE_FIELD = 'profileId'
+    MUTABLE_FIELD = ['profileId', 'dailyBudget']
+
 
     def self.list
       send_request("/v1/profiles", "get", nil, profile: true)
