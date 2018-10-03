@@ -26,10 +26,9 @@ RSpec.describe AmazonAdvertisingApiRuby::Keyword::SuggestedKeyword do
 
     it "return list of suggested keywords by asin" do
       opts = {
-        asinValue: "B06XNX32K1",
         suggestedBy: "asinValue"
       }
-      params = {"maxNumSuggestions" => "200"}
+      params = {"asinValue" => "B06XNX32K1", "maxNumSuggestions" => "200"}
       api_call(params, opts)
     end
 
@@ -44,7 +43,7 @@ RSpec.describe AmazonAdvertisingApiRuby::Keyword::SuggestedKeyword do
 
   def api_call(params, opts)
     payload_response = AmazonAdvertisingApiRuby::Keyword::SuggestedKeyword.list(params, opts)
-    expect(payload_response.count).not_to be nil
+    expect(payload_response).to be_a(Array)
   end
 
   def create_ad_group
