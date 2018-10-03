@@ -1,6 +1,7 @@
 require "amazon_advertising_api_ruby/base_request"
 require "amazon_advertising_api_ruby/ad_group"
 require "amazon_advertising_api_ruby/campaign"
+require "amazon_advertising_api_ruby/product_ad"
 require "amazon_advertising_api_ruby/profile"
 require "amazon_advertising_api_ruby/report"
 require "amazon_advertising_api_ruby/token"
