@@ -10,14 +10,14 @@ RSpec.describe AmazonAdvertisingApiRuby::Profile do
     end
 
     it "register profiles" do
-      profiles = AmazonAdvertisingApiRuby::Profile.register
-      profile_id = profiles["registerProfileId"] || profiles["profileId"]
+      profile = AmazonAdvertisingApiRuby::Profile.register
+      profile_id = profile["registerProfileId"] || profile["profileId"]
       expect(profile_id).not_to be nil
     end
 
-    it "create profiles" do
-      profiles = AmazonAdvertisingApiRuby::Profile.create
-      expect(profiles["profileId"]).not_to be nil
+    it "create profile" do
+      profile = AmazonAdvertisingApiRuby::Profile.create
+      expect(profile["profileId"]).not_to be nil
     end
 
     it "get profile" do
