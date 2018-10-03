@@ -1,6 +1,7 @@
 require "spec_helper"
 
 RSpec.describe AmazonAdvertisingApiRuby::Report do
+  include_context "shared setup"
 
   describe "#create" do
     context "given a keywords recordType" do
