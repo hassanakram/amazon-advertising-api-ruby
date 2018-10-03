@@ -1,6 +1,7 @@
 require "spec_helper"
 
 RSpec.describe AmazonAdvertisingApiRuby::Keyword::AdGroupBiddableKeywords do
+  include_context "shared setup"
 
   describe "AdGroupBiddableKeywords crud operations" do
 
