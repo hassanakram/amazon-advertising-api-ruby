@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "amazon_advertising_api_ruby/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "integration"
+  spec.name          = "amazon_advertising_api_ruby"
   spec.version       = AmazonAdvertisingApiRuby::VERSION
   spec.authors       = ["Qbatch"]
   spec.email         = ["hassan.akram3282@gmail.com"]
