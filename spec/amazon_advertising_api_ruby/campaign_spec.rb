@@ -39,12 +39,10 @@ RSpec.describe AmazonAdvertisingApiRuby::Campaign do
     it 'update campaign' do
       campaign = AmazonAdvertisingApiRuby::Campaign.update({
         "campaignId" => @campaigns.first["campaignId"],
-        "name" => "Updated campaign xyz",
+        "name" => 'Qbatch',
         "state" => "enabled",
         "dailyBudget" => 0.5,
-        "startDate" => (Time.now).strftime('%Y%m%d'),
-        "endDate" => ((Time.now + 10 * 60 * 60).strftime('%Y%m%d')),
-        "premiumBidAdjustment" => false
+
                                                            })
       expect(campaign[0]["code"]).to include('SUCCESS')
     end

@@ -5,7 +5,7 @@ RSpec.describe AmazonAdvertisingApiRuby::Snapshot do
 
   describe "#create" do
     context "given a 'keywords' recordType" do
-      it "returns a keyword's snapshot" do
+      xit "returns a keyword's snapshot" do
 
         payload_response = AmazonAdvertisingApiRuby::Snapshot.request_record_type(
           {
