@@ -1,6 +1,7 @@
 require "spec_helper"
 
 RSpec.describe AmazonAdvertisingApiRuby::Keyword::AdGroupNegativeKeywords do
+  include_context "shared setup"
 
   describe "AdGroupNegativeKeywords crud operations" do
 

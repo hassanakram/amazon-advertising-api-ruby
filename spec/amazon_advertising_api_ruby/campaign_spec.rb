@@ -1,7 +1,6 @@
 require "spec_helper"
 
 RSpec.describe AmazonAdvertisingApiRuby::Campaign do
-
   include_context "shared setup"
 
   before (:each) do
