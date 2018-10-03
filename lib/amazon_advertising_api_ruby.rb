@@ -6,11 +6,13 @@ require "amazon_advertising_api_ruby/profile"
 require "amazon_advertising_api_ruby/report"
 require "amazon_advertising_api_ruby/token"
 require "amazon_advertising_api_ruby/version"
+require "amazon_advertising_api_ruby/suggested_keyword"
+require "amazon_advertising_api_ruby/ad_group_biddable_keywords"
+require "amazon_advertising_api_ruby/ad_group_negative_keywords"
+require "amazon_advertising_api_ruby/campaign_negative_keywords"
 require "oauth2"
 require "pry"
 require "rest-client"
-require "amazon_advertising_api_ruby/ad_group"
-require "amazon_advertising_api_ruby/suggested_keyword"
 
 module AmazonAdvertisingApiRuby
   TOKEN_URL = "https://api.amazon.com"
@@ -20,9 +22,9 @@ module AmazonAdvertisingApiRuby
 
   def self.client
     return OAuth2::Client.new(
-      "",
-      "",
-      :site => TOKEN_URL
+        "",
+        "",
+        :site => TOKEN_URL
     )
   end
 

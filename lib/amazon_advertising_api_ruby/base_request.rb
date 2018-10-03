@@ -1,11 +1,8 @@
 module AmazonAdvertisingApiRuby
   class BaseRequest
 
-    API_GET_URL = ''
-    API_GET_EXTENDED_URL = ''
-    API_LIST_URL = ''
-    API_CREATE_URL = ''
-    FIELDS = ''
+    UPDATE_FIELD = 'keywordId'
+    MUTABLE_FIELD = ['state', 'keywordId']
 
 
     def self.send_request(api_path, method = 'get', payload = nil, opts = {})
@@ -51,7 +48,7 @@ module AmazonAdvertisingApiRuby
         end
       }
       raise ArgumentError.new("Parameter#{'s' if missing_params.count > 1} missing: #{missing_params.join(", ")}") if missing_params.count > 0
-      send_request(self::API_CREATE_URL, 'post', [params])
+      send_request(self::API_URL, 'post', [params])
     end
 
     def self.retrieve(id)
@@ -67,11 +64,23 @@ module AmazonAdvertisingApiRuby
     end
 
     def self.list(params = {}, opts = {})
-      send_request(self::API_LIST_URL + "#{setup_url_params(params)}")
+      send_request(self::API_URL + "#{setup_url_params(params)}")
+    end
+
+    def self.update(params = {}, opt = {})
+      raise ArgumentError.new("#{self::UPDATE_FIELD} is required") if params.key?("#{self::UPDATE_FIELD}") == false
+      extra_parms = []
+      params.keys.map {|key|
+        unless self::MUTABLE_FIELD.include? key then
+          extra_parms.push(key)
+        end
+      }
+      raise ArgumentError.new("Parameter#{'s' if extra_parms.count > 1} missing: #{extra_parms.join(", ")}") if extra_parms.count > 0
+      send_request(self::API_URL, 'put', [params])
     end
 
     def self.setup_url_params(params)
-      fields = ['startIndex', 'count', 'campaignType', 'stateFilter', 'name', 'campaignIdFilter', 'adGroupIdFilter']
+      fields = ['startIndex', 'count', 'campaignType', 'stateFilter', 'name', 'campaignIdFilter', 'adGroupIdFilter', 'keywordText', 'matchTypeFilter', 'keywordIdFilter', 'sku', 'asin']
       return map_url(params, fields)
     end
 
@@ -81,11 +90,10 @@ module AmazonAdvertisingApiRuby
         if params[a] then
           url_params += "&" if url_params.size > 0
           url_params += "?" if url_params.size == 0
-          url_params += + a + "=" + params[a].to_s
+          url_params += +a + "=" + params[a].to_s
         end
       }
       url_params
     end
-
   end
 end

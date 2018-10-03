@@ -1,5 +1,6 @@
 module AmazonAdvertisingApiRuby
-  class Profile  < BaseRequest
+  class Profile < BaseRequest
+    UPDATE_FIELD = 'profileId'
 
     def self.list
       send_request("/v1/profiles", "get", nil, profile: true)

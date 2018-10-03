@@ -24,6 +24,13 @@ RSpec.describe AmazonAdvertisingApiRuby::Profile do
       expect(profile["profileId"]).not_to be nil
     end
 
+    it 'update profile' do
+      profile = AmazonAdvertisingApiRuby::Profile.update({
+        "profileId" => AmazonAdvertisingApiRuby.profile_id,
+        "dailyBudget" => "8.5"
+      })
+        expect(profile[0]["code"]).to include('SUCCESS')
+    end
   end
 
   def profile_ids_not_nil(profiles, key)

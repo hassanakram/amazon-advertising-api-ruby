@@ -3,6 +3,7 @@ require "spec_helper"
 RSpec.describe AmazonAdvertisingApiRuby::AdGroup do
 
   describe "AdGroup crud operations" do
+
     before (:each) do
       @adGroups = AmazonAdvertisingApiRuby::AdGroup.create({
         "name" => "xyz",
@@ -14,6 +15,16 @@ RSpec.describe AmazonAdvertisingApiRuby::AdGroup do
 
     it 'Create AdGroup' do
       expect(@adGroups).not_to be nil
+    end
+
+    it 'update AdGroup' do
+      adGroups = AmazonAdvertisingApiRuby::AdGroup.update({
+       "adGroupId" => @adGroups.first["adGroupId"],
+       "name" => "Updated",
+       "state" => "paused",
+       "defaultBid" => 0.8
+        })
+      expect(adGroups[0]["code"]).to include('SUCCESS')
     end
 
     it 'list AdGroup' do

@@ -15,7 +15,7 @@ module AmazonAdvertisingApiRuby
       response_body = send_request(location, "get", nil, opts)
       dir = "public/reports/"
       local_dir = FileUtils.mkdir_p(dir)
-      file_path = dir + opts[:recordType]+ "-" + Date.today.to_s + ".json.gz"
+      file_path = dir + opts[:recordType] + "-" + Date.today.to_s + ".json.gz"
 
       File.open(file_path, 'wb') do |file|
         file << response_body

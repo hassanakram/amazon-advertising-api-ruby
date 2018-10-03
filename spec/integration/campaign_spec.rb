@@ -1,6 +1,7 @@
 require "spec_helper"
 
 RSpec.describe AmazonAdvertisingApiRuby::Campaign do
+
   before (:each) do
     @campaigns = AmazonAdvertisingApiRuby::Campaign.create({
       "name" => "test",
@@ -32,6 +33,19 @@ RSpec.describe AmazonAdvertisingApiRuby::Campaign do
     it 'list campaigns' do
       campaign = AmazonAdvertisingApiRuby::Campaign.list()
       expect(campaign).not_to be nil
+    end
+
+    it 'update campaign' do
+      campaign = AmazonAdvertisingApiRuby::Campaign.update({
+        "campaignId" => @campaigns.first["campaignId"],
+        "name" => "Updated campaign xyz",
+        "state" => "enabled",
+        "dailyBudget" => 0.5,
+        "startDate" => (Time.now).strftime('%Y%m%d'),
+        "endDate" => ((Time.now + 10 * 60 * 60).strftime('%Y%m%d')),
+        "premiumBidAdjustment" => false
+                                                           })
+      expect(campaign[0]["code"]).to include('SUCCESS')
     end
 
     it "checks invlid campaign data" do
