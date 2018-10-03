@@ -50,15 +50,18 @@ RSpec.describe AmazonAdvertisingApiRuby::Campaign do
     end
 
     it "checks all parameters are passed" do
-      invalid_campaigns = AmazonAdvertisingApiRuby::Campaign.create({
-        # "name" => "invalid",
-        "campaignType" => "invalid",
-        "state" => "invalid",
-        "dailyBudget" => "aa",
-        "startDate" => (Time.now).strftime('%Y%m%d'),
-        "targetingType" => "invalid"
-      })
-      expect(invalid_campaigns.to_s).to include('Parameter missing') #missing parameter error
+      begin
+        invalid_campaigns = AmazonAdvertisingApiRuby::Campaign.create({
+          # "name" => "invalid",
+          "campaignType" => "invalid",
+          "state" => "invalid",
+          "dailyBudget" => "aa",
+          "startDate" => (Time.now).strftime('%Y%m%d'),
+          "targetingType" => "invalid"
+        })
+      rescue => err
+        expect(err.to_s).to include('Parameter missing') #missing parameter error
+      end
     end
 
   end

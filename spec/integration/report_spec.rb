@@ -15,13 +15,12 @@ RSpec.describe AmazonAdvertisingApiRuby::Report do
                 "segment" => "query"
             }
         )
-
-        expect(payload_response).not_to be nil
+        expect(payload_response["status"]).to include "IN_PROGRESS"
         sleep(10)
         status = AmazonAdvertisingApiRuby::Report.status(payload_response["reportId"])
         if status && status["location"]
           report = AmazonAdvertisingApiRuby::Report.download(status["location"], recordType: 'keywords')
-          expect(report).not_to be nil
+          expect(report).to include "public/reports" #it creates a file in public folder
         end
 
       end

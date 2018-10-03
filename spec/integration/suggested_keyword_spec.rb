@@ -43,7 +43,7 @@ RSpec.describe AmazonAdvertisingApiRuby::Keyword::SuggestedKeyword do
 
   def api_call(params, opts)
     payload_response = AmazonAdvertisingApiRuby::Keyword::SuggestedKeyword.list(params, opts)
-    expect(payload_response).to be_a(Array)
+    expect((verify_invalid_values payload_response)).to be false
   end
 
   def create_ad_group
@@ -55,5 +55,8 @@ RSpec.describe AmazonAdvertisingApiRuby::Keyword::SuggestedKeyword do
     })
   end
 
-end
+  def verify_invalid_values response
+    response.any? {|h| !(h["keywordText"].include?('keyword'))}
+  end
 
+end
