@@ -21,5 +21,22 @@ module AmazonAdvertisingApiRuby
       end
     end
 
+    def self.authorize(auth_code)
+      response = AmazonAdvertisingApiRuby::client.request(:post, "/auth/o2/token",
+        {
+          body: {
+            grant_type: "authorization_code",
+            client_id: AmazonAdvertisingApiRuby.client_id,
+            code: auth_code,
+            client_secret: AmazonAdvertisingApiRuby.client_secret,
+            redirect_uri: "https://vividcommerce.io/authenticatemws"
+          }
+        }
+      )
+      return JSON.parse(response.body)
+    end
+
+
+
   end
 end
