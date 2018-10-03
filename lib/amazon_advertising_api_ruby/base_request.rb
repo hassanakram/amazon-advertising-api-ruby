@@ -38,7 +38,7 @@ module AmazonAdvertisingApiRuby
         if err.response.code == 307
           return RestClient.get(err.response.headers[:location])
         end
-        return err.message
+        return err
       end
 
     end
