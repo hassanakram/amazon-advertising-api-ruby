@@ -17,7 +17,7 @@ RSpec.configure do |config|
       file_path = File.join(File.dirname(__FILE__),"yaml/secret.yaml")
       credentials = YAML.load_file(file_path)
       if credentials
-        AmazonAdvertisingApiRuby.test_env = true
+        AmazonAdvertisingApiRuby.current_env = 'test'
         AmazonAdvertisingApiRuby.client_id = credentials["CLIENT_ID"]
         AmazonAdvertisingApiRuby.client_secret = credentials["CLIENT_SECRET"]
         AmazonAdvertisingApiRuby.refresh_token = credentials["REFRESH_TOKEN"]
