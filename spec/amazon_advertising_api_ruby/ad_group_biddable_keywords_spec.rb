@@ -13,7 +13,7 @@ RSpec.describe AmazonAdvertisingApiRuby::Keyword::AdGroupBiddableKeywords do
         "keywordText" => "32",
         "state" => "enabled",
         "matchType" => "broad",
-                                                               })
+      })
     end
     it 'Create AdGroupBiddableKeywords' do
       expect(@ad_group_bidable[0]["code"]).to include('SUCCESS')
