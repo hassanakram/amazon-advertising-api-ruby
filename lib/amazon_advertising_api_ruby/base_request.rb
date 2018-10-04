@@ -1,7 +1,7 @@
 module AmazonAdvertisingApiRuby
   class BaseRequest
 
-    UPDATE_FIELD = 'keywordId'
+    UPDATE_BY = 'keywordId'
     MUTABLE_FIELD = ['state', 'keywordId']
 
 
@@ -66,7 +66,7 @@ module AmazonAdvertisingApiRuby
     end
 
     def self.update(params = {}, opt = {})
-      return raise_exception(422, "#{self::UPDATE_FIELD} is required") if params.key?("#{self::UPDATE_FIELD}") == false
+      return raise_exception(422, "#{self::UPDATE_BY} is required") if params.key?("#{self::UPDATE_BY}") == false
       extra_parms = []
       params.keys.map {|key|
         unless self::MUTABLE_FIELD.include? key then
