@@ -2,7 +2,7 @@ module AmazonAdvertisingApiRuby
   class Profile  < BaseRequest
     API_GET_URL = "/v1/profiles/"
     API_LIST_URL = "/v1/profiles"
-    UPDATE_FIELD = 'profileId'
+    UPDATE_BY = 'profileId'
     MUTABLE_FIELD = ['profileId', 'dailyBudget']
 
     def self.register(payloads = {countryCode: "US"})
