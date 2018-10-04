@@ -4,9 +4,7 @@ RSpec.describe AmazonAdvertisingApiRuby::Keyword::CampaignNegativeKeywords do
   include_context "shared setup"
 
   describe "CampaignNegativeKeywords crud operations" do
-    before (:all) do
-      set_configurations
-    end
+
     before (:each) do
       @campaign_negative_keyword = AmazonAdvertisingApiRuby::Keyword::CampaignNegativeKeywords.create({
 

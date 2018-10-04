@@ -3,10 +3,7 @@ module AmazonAdvertisingApiRuby
     API_GET_URL = "/v1/profiles/"
     API_LIST_URL = "/v1/profiles"
     UPDATE_FIELD = 'profileId'
-
-    def self.list
-      send_request("/v1/profiles", "get", nil, profile: true)
-    end
+    MUTABLE_FIELD = ['profileId', 'dailyBudget']
 
     def self.register(payloads = {countryCode: "US"})
       send_request("/v1/profiles/register", "put", payloads)

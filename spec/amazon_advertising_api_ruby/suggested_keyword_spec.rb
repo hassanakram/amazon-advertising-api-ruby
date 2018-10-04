@@ -4,7 +4,7 @@ RSpec.describe AmazonAdvertisingApiRuby::Keyword::SuggestedKeyword do
   include_context "shared setup"
 
   describe "suggested keywords operations" do
-    it "return list of suggested keywords by ad group" do
+    xit "return list of suggested keywords by ad group" do
       ad_groups = create_ad_group
       opts = {
         suggestedBy: "adGroupId"
@@ -13,7 +13,7 @@ RSpec.describe AmazonAdvertisingApiRuby::Keyword::SuggestedKeyword do
       api_call(params, opts)
     end
 
-    it "return list extended of suggested keywords by ad group" do
+    xit "return list extended of suggested keywords by ad group" do
       ad_groups = create_ad_group
       opts = {
         suggestedBy: "adGroupIdExtended"
