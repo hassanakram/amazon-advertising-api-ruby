@@ -39,13 +39,13 @@ RSpec.describe AmazonAdvertisingApiRuby::Campaign do
     it 'update campaign' do
       campaign = AmazonAdvertisingApiRuby::Campaign.update({
         "campaignId" => @campaigns.first["campaignId"],
-        "name" => "Updated campaign xyz",
+        "name" => "Updated campaign xyz12",
         "state" => "enabled",
         "dailyBudget" => 0.5,
         "startDate" => (Time.now).strftime('%Y%m%d'),
         "endDate" => ((Time.now + 10 * 60 * 60).strftime('%Y%m%d')),
         "premiumBidAdjustment" => false
-                                                           })
+      })
       expect(campaign[0]["code"]).to include('SUCCESS')
     end
 
@@ -58,7 +58,7 @@ RSpec.describe AmazonAdvertisingApiRuby::Campaign do
         "startDate" => (Time.now).strftime('%Y%m%d'),
         "targetingType" => "invalid"
       })
-      expect(invalid_campaigns.to_s).to include('422') #Unprocessable Entity Error
+      expect(invalid_campaigns.response.code).to equal(422) #Unprocessable Entity Error
     end
 
     it "checks all parameters are passed" do
@@ -70,7 +70,7 @@ RSpec.describe AmazonAdvertisingApiRuby::Campaign do
         "startDate" => (Time.now).strftime('%Y%m%d'),
         "targetingType" => "invalid"
       })
-      expect(invalid_campaigns.to_s).to include('Parameter missing') #missing parameter error
+      expect(invalid_campaigns.response.code).to equal(422) #missing parameter error
     end
 
   end

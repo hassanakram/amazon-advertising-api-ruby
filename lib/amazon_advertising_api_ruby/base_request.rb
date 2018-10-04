@@ -45,7 +45,7 @@ module AmazonAdvertisingApiRuby
           missing_params.push(field)
         end
       }
-      raise ArgumentError.new("Parameter#{'s' if missing_params.count > 1} missing: #{missing_params.join(", ")}") if missing_params.count > 0
+      return raise_exception(422, "Parameter#{'s' if missing_params.count > 1} missing: #{missing_params.join(", ")}") if missing_params.count > 0
       send_request(self::API_URL, 'post', [params])
     end
 
@@ -66,14 +66,15 @@ module AmazonAdvertisingApiRuby
     end
 
     def self.update(params = {}, opt = {})
-      raise ArgumentError.new("#{self::UPDATE_FIELD} is required") if params.key?("#{self::UPDATE_FIELD}") == false
+      return raise_exception(422, "#{self::UPDATE_FIELD} is required") if params.key?("#{self::UPDATE_FIELD}") == false
       extra_parms = []
       params.keys.map {|key|
         unless self::MUTABLE_FIELD.include? key then
           extra_parms.push(key)
         end
       }
-      raise ArgumentError.new("Parameter#{'s' if extra_parms.count > 1} missing: #{extra_parms.join(", ")}") if extra_parms.count > 0
+
+      return raise_exception(422, "Parameter#{'s' if extra_parms.count > 1} missing: #{extra_parms.join(", ")}") if extra_parms.count > 0
       send_request(self::API_URL, 'put', [params])
     end
 
@@ -110,6 +111,10 @@ module AmazonAdvertisingApiRuby
         end
       }
       url_params
+    end
+
+    def self.raise_exception(code, message)
+      OpenStruct.new({response: OpenStruct.new({code: code, message: message})})
     end
   end
 end
