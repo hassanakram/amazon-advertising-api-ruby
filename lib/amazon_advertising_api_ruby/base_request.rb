@@ -83,17 +83,17 @@ module AmazonAdvertisingApiRuby
       send_request(self::REQUEST_URL%params.delete("recordType"), "post", params)
     end
 
-    def self.download(location, opts = {})
+    def self.generate_data(location, opts = {})
       opts.merge!({:full_path => true, :gzip => true})
-      response_body = send_request(location, "get", nil, opts)
-      dir = "public/reports/"
-      local_dir = FileUtils.mkdir_p(dir)
-      file_path = dir + opts[:recordType]+ "-" + Date.today.to_s + ".json.gz"
+      response = send_request(location, "get", nil, opts)
+      parse_gz_to_json(response)
+    end
 
-      File.open(file_path, 'wb') do |file|
-        file << response_body
-      end
-      file_path
+    def self.parse_gz_to_json(response)
+      sio = StringIO.new( response.body )
+      gz = Zlib::GzipReader.new( sio )
+      data = gz.read
+      JSON.parse(data)
     end
 
     def self.setup_url_params(params)
