@@ -1,7 +1,7 @@
 module AmazonAdvertisingApiRuby
   class BaseRequest
 
-    UPDATE_FIELD = 'keywordId'
+    UPDATE_BY = 'keywordId'
     MUTABLE_FIELD = ['state', 'keywordId']
 
 
@@ -45,7 +45,7 @@ module AmazonAdvertisingApiRuby
           missing_params.push(field)
         end
       }
-      raise ArgumentError.new("Parameter#{'s' if missing_params.count > 1} missing: #{missing_params.join(", ")}") if missing_params.count > 0
+      return raise_exception(422, "Parameter#{'s' if missing_params.count > 1} missing: #{missing_params.join(", ")}") if missing_params.count > 0
       send_request(self::API_URL, 'post', [params])
     end
 
@@ -66,14 +66,15 @@ module AmazonAdvertisingApiRuby
     end
 
     def self.update(params = {}, opt = {})
-      raise ArgumentError.new("#{self::UPDATE_FIELD} is required") if params.key?("#{self::UPDATE_FIELD}") == false
+      return raise_exception(422, "#{self::UPDATE_BY} is required") if params.key?("#{self::UPDATE_BY}") == false
       extra_parms = []
       params.keys.map {|key|
         unless self::MUTABLE_FIELD.include? key then
           extra_parms.push(key)
         end
       }
-      raise ArgumentError.new("Parameter#{'s' if extra_parms.count > 1} Extra: #{extra_parms.join(", ")}") if extra_parms.count > 0
+
+      return raise_exception(422, "Parameter#{'s' if extra_parms.count > 1} missing: #{extra_parms.join(", ")}") if extra_parms.count > 0
       send_request(self::API_URL, 'put', [params])
     end
 
@@ -82,17 +83,17 @@ module AmazonAdvertisingApiRuby
       send_request(self::REQUEST_URL%params.delete("recordType"), "post", params)
     end
 
-    def self.download(location, opts = {})
+    def self.generate_data(location, opts = {})
       opts.merge!({:full_path => true, :gzip => true})
-      response_body = send_request(location, "get", nil, opts)
-      dir = "public/reports/"
-      local_dir = FileUtils.mkdir_p(dir)
-      file_path = dir + opts[:recordType]+ "-" + Date.today.to_s + ".json.gz"
+      response = send_request(location, "get", nil, opts)
+      parse_gz_to_json(response)
+    end
 
-      File.open(file_path, 'wb') do |file|
-        file << response_body
-      end
-      file_path
+    def self.parse_gz_to_json(response)
+      sio = StringIO.new( response.body )
+      gz = Zlib::GzipReader.new( sio )
+      data = gz.read
+      JSON.parse(data)
     end
 
     def self.setup_url_params(params)
@@ -110,6 +111,10 @@ module AmazonAdvertisingApiRuby
         end
       }
       url_params
+    end
+
+    def self.raise_exception(code, message)
+      OpenStruct.new({response: OpenStruct.new({code: code, message: message})})
     end
   end
 end

@@ -25,8 +25,8 @@ RSpec.describe AmazonAdvertisingApiRuby::Report do
         end
 
         if status && status["location"]
-          report = AmazonAdvertisingApiRuby::Report.download(status["location"], recordType: 'keywords')
-          expect(report).not_to be nil
+          response = AmazonAdvertisingApiRuby::Report.generate_data(status["location"], recordType: 'keywords')
+          expect(response).to be_a(Array)
         end
 
       end

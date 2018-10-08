@@ -13,7 +13,7 @@ RSpec.describe AmazonAdvertisingApiRuby::Keyword::AdGroupNegativeKeywords do
         "keywordText" => "32",
         "state" => "enabled",
         "matchType" => "negativePhrase"
-                                                                                                     })
+      })
     end
     it 'Create AdGroupNegativeKeywords' do
       expect(@ad_group_negative_keyword[0]["code"]).to include('SUCCESS')
