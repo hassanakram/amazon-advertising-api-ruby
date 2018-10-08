@@ -22,8 +22,8 @@ RSpec.describe AmazonAdvertisingApiRuby::Snapshot do
           sleep(30)
         end
         if status && status["location"]
-          snapshot = AmazonAdvertisingApiRuby::Snapshot.download(status["location"], recordType: 'keywords')
-          expect(snapshot).not_to be nil
+          snapshot = AmazonAdvertisingApiRuby::Snapshot.generate_data(status["location"], recordType: 'keywords')
+          expect(snapshot).to be_a(Array)
         end
 
       end

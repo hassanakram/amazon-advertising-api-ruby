@@ -12,7 +12,6 @@ require "amazon_advertising_api_ruby/ad_group_biddable_keywords"
 require "amazon_advertising_api_ruby/ad_group_negative_keywords"
 require "amazon_advertising_api_ruby/campaign_negative_keywords"
 require "oauth2"
-require "pry"
 require "rest-client"
 
 module AmazonAdvertisingApiRuby

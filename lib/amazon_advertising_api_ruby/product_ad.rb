@@ -5,7 +5,8 @@ module AmazonAdvertisingApiRuby
     API_GET_EXTENDED_URL = "/v1/productAds/extended/"
     API_URL = "/v1/productAds"
     FIELDS = ['campaignId', 'adGroupId', 'sku', 'state']
-    UPDATE_FIELD = 'adId'
+    UPDATE_BY = 'adId'
     MUTABLE_FIELD = ['state', 'adId']
   end
 end
+
