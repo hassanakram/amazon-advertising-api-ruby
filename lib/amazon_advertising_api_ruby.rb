@@ -42,6 +42,6 @@ module AmazonAdvertisingApiRuby
   end
 
   class << self
-    attr_accessor :client_secret, :client_id, :refresh_token, :profile_id, :current_env, :initializing_time, :access_token
+    attr_accessor :client_secret, :client_id, :refresh_token, :profile_id, :current_env, :initializing_time, :access_token, :redirect_uri
   end
 end
