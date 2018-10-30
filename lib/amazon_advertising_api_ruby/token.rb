@@ -29,7 +29,7 @@ module AmazonAdvertisingApiRuby
             client_id: AmazonAdvertisingApiRuby.client_id,
             code: auth_code,
             client_secret: AmazonAdvertisingApiRuby.client_secret,
-            redirect_uri: "https://vividcommerce.io/authenticatemws"
+            redirect_uri: AmazonAdvertisingApiRuby.redirect_uri
           }
         }
       )
