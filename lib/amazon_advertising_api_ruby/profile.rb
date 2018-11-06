@@ -1,7 +1,7 @@
 module AmazonAdvertisingApiRuby
   class Profile  < BaseRequest
     API_GET_URL = "/v1/profiles/"
-    API_LIST_URL = "/v1/profiles"
+    API_URL = "/v1/profiles"
     UPDATE_BY = 'profileId'
     MUTABLE_FIELD = ['profileId', 'dailyBudget']
 
